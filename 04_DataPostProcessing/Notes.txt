@@ -1,0 +1,23 @@
+Notes on Experimental setup: Read this before conducting experiments
+
+1. The Lighthousetracking.cpp gets the data of Controller and the trackers using the function "GetControllerStateWithPose" which requires the trigger of a button on the controller to update the data otherwise the initial pose while the system is on is transmitted. So, when starting the program make sure to press the button atleast once. 
+
+2. The tool frame offset for the single mount systems are 
+	Tracker: [0, 0 , 45, -88 , 45 , 68] #[Xm, Ym, Zm, Z1deg, Ydeg, Z2deg]
+	Controller: [ , 0, 211, -88 , 45 , 68]
+	Hmd: [0, 0, 146, -88 , 45 , 68]
+
+3. Serial # of the devices used for experimentation
+	-> Precision and Static analysis
+		Tracker : 
+		Controller :
+4. Play area setup: 3.5 * 3.5 meters, Height from ground 2.2 meters (Newly recommended tracking area by VIVE)
+
+5. Prescribed workspace: xlim [-0.5 0.5] ylim [-1.3 -0.75] zlim [1.0 1.6] Rotation [-88 , 45 , 68]
+
+6. FOR DYnamic analysis, ensure that the order of tracker pairing is kept otherwise changes must be made in the post processing 
+	While measuring tracker make sure the controller are also connected before the trackers are paired
+	Tracker order: left right; 
+	Controller order: left right;
+	
+7. clientparallel to collect data : F:\ViveDynTrackTest\cppWorkspace\ClientParallel : only solution updated properly
