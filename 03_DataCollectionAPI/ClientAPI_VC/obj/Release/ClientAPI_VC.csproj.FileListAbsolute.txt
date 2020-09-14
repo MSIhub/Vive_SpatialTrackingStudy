@@ -1,0 +1,8 @@
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\bin\Release\ClientAPI_VC.exe.config
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\bin\Release\ClientAPI_VC.exe
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\bin\Release\ClientAPI_VC.pdb
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\obj\Release\ClientAPI_VC.Form1.resources
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\obj\Release\ClientAPI_VC.Properties.Resources.resources
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\obj\Release\ClientAPI_VC.csproj.GenerateResource.cache
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\obj\Release\ClientAPI_VC.exe
+F:\ViveDynTrackTest\cppWorkspace\ClientAPI_VC\obj\Release\ClientAPI_VC.pdb
