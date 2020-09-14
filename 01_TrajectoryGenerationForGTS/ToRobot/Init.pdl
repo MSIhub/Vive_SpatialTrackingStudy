@@ -1,0 +1,28 @@
+PROGRAM Init HOLD
+  
+VAR
+  trigger_on : BOOLEAN EXPORTED FROM mf
+  trigger_off : BOOLEAN EXPORTED FROM mf
+  
+BEGIN
+  $PROG_CNFG := 2
+  $ARM_SPD_OVR := 100
+  $ARM_ACC_OVR := 100
+  $ARM_DEC_OVR := 100
+  $LIN_SPD := 0.2
+  $ROT_SPD := 1.0
+  $TERM_TYPE := FINE
+  $UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+  $TOOL := POS(0.0, 0.0, 21.700001, 0.0, 0.0, 0.0, ' ')
+  
+  trigger_on := TRUE
+  trigger_off := FALSE
+  
+  MOVE TO POS(0.0, 0.0, 1700.0, 0.0, 0.0, 0.0, ' ') WITH $SPD_OPT = SPD_LIN
+  WRITE LUN_CRT (NL, '#######Moved to Init', NL)
+  
+  DELAY 100000
+  
+  trigger_on := FALSE
+  trigger_off := TRUE
+END Init

@@ -1,0 +1,10 @@
+PROGRAM StartXO3 HOLD
+
+BEGIN
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.0, 0.0, 146.0, 0.0, 0.0, 0.0, ' ')
+
+	MOVE TO POS(1073.0, 543.0, 1770.0, 0.0, 0.0, -90.0, ' ')
+	WRITE LUN_CRT (NL, '#######Moved to START XO3', NL)
+
+END StartXO3

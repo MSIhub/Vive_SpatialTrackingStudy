@@ -1,0 +1,194 @@
+PROGRAM YO3 HOLD
+
+  -------------------------------------------------------------------------------
+  -- Mohamed sadiq ikbal #msihub
+  -- mohamedsadiq.ikbal@edu.unige.it
+  -------------------------------------------------------------------------------
+  -- Brief:
+  -- YO3 trajectory batch input file
+  -- Press Start button in teaching pendant to begin the execution
+  -------------------------------------------------------------------------------
+
+TYPE node_def1 = NODEDEF
+		$MAIN_POS
+		$MOVE_TYPE
+	ENDNODEDEF
+
+
+VAR
+	pth1 : PATH OF node_def1 
+	int_var : INTEGER
+	trigger_on : BOOLEAN EXPORTED FROM mf
+	trigger_off : BOOLEAN EXPORTED FROM mf
+
+  -------------------------------------------------------------------------------  
+  ------------------------------ MAIN FUNCTION ----------------------------------  
+  -------------------------------------------------------------------------------  
+BEGIN
+	WRITE LUN_CRT (NL, '#######Motion program YO3 started...', NL)
+	$PROG_CNFG :=2
+	$ARM_SPD_OVR :=100
+	$ARM_ACC_OVR :=100
+	$ARM_DEC_OVR :=100
+	$LIN_SPD := 0.050
+	$ROT_SPD := 0.050
+	$TERM_TYPE := FINE
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.000000, 0.000000, 21.700000, 0.000000, 0.000000, 0.000000, ' ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	WRITE LUN_CRT (NL, '#######Moving to starting point...', NL)
+	MOVE TO POS(-1050.0,-48.2,1650.0,0.0,0.0,0.0,' ')
+
+	NODE_APP(pth1,32)
+	pth1.NODE[1].$MAIN_POS :=POS(-1050.0,-48.2,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[2].$MAIN_POS :=POS(-1050.0,-713.6, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[3].$MAIN_POS :=POS(-893.6,-891.8,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[4].$MAIN_POS :=POS(-715.4,-713.6,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[5].$MAIN_POS :=POS(-715.4,-226.4,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[6].$MAIN_POS :=POS(-537.2,-48.2,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[7].$MAIN_POS :=POS(-359.0,-226.4,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[8].$MAIN_POS :=POS(-359.0,-713.6,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[9].$MAIN_POS :=POS(-180.8,-891.8,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[10].$MAIN_POS :=POS(-2.6,-713.6,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[11].$MAIN_POS :=POS(-2.6,-226.4,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[12].$MAIN_POS :=POS(175.6,-48.2,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[13].$MAIN_POS :=POS(353.8,-226.4,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[14].$MAIN_POS :=POS(353.8,-713.6,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[15].$MAIN_POS :=POS(532.0,-891.8,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[16].$MAIN_POS :=POS(710.2,-713.6,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[17].$MAIN_POS :=POS(710.2,683.74,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[18].$MAIN_POS :=POS(532.0,861.94,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[19].$MAIN_POS :=POS(353.8,683.74,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[20].$MAIN_POS :=POS(353.8,245.26,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[21].$MAIN_POS :=POS(175.6,67.06,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[22].$MAIN_POS :=POS(-2.6,245.26,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[23].$MAIN_POS :=POS(-2.6,683.74,   1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[24].$MAIN_POS :=POS(-180.8,861.94, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[25].$MAIN_POS :=POS(-359.0,683.74, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[26].$MAIN_POS :=POS(-359.0,245.26, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[27].$MAIN_POS :=POS(-537.2,67.06,  1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[28].$MAIN_POS :=POS(-715.4,245.26, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[29].$MAIN_POS :=POS(-715.4,683.74, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[30].$MAIN_POS :=POS(-893.6,861.94, 1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[31].$MAIN_POS :=POS(-1050.0,683.74,1650.0,0.0,0.0,0.0,' ')
+	pth1.NODE[32].$MAIN_POS :=POS(-1050.0,25.00, 1650.0,0.0,0.0,0.0,' ')
+
+	pth1.NODE[1].$MOVE_TYPE := LINEAR
+
+
+
+	pth1.NODE[32].$MOVE_TYPE := LINEAR
+
+
+
+
+	FOR int_var := 2 TO 16 DO
+
+
+
+		pth1.NODE[int_var].$MOVE_TYPE := LINEAR
+
+
+
+		int_var := int_var + 1
+		
+		pth1.NODE[int_var].$MOVE_TYPE := SEG_VIA
+
+
+
+		int_var := int_var + 1
+
+
+
+		pth1.NODE[int_var].$MOVE_TYPE := CIRCULAR
+
+
+
+	ENDFOR
+
+
+	FOR int_var := 17 TO 31 DO
+
+
+
+		pth1.NODE[int_var].$MOVE_TYPE := LINEAR
+
+
+
+		int_var := int_var + 1
+
+
+
+		pth1.NODE[int_var].$MOVE_TYPE := SEG_VIA
+
+
+
+		int_var := int_var + 1
+
+
+
+		pth1.NODE[int_var].$MOVE_TYPE := CIRCULAR
+
+
+
+	ENDFOR
+	trigger_on:= TRUE
+	trigger_off:= FALSE
+
+	WRITE LUN_CRT (NL, '#######Starting trajectory...', NL)
+	MOVE ALONG pth1 WITH $SPD_OPT = SPD_LIN 
+	CANCEL ALL
+	NODE_DEL(pth1, 1, 32)
+
+	trigger_on:= FALSE
+	trigger_off:= TRUE
+	WRITE LUN_CRT (NL, '#######Motion program YO3 end...', NL)
+
+END YO3

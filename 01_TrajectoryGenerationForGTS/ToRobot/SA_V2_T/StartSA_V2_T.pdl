@@ -1,0 +1,12 @@
+PROGRAM StartSA_V2_T HOLD
+
+BEGIN
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.000000, 0.000000, 45.000000, 0.000000, 0.000000, 0.000000, ' ')
+
+
+	MOVE TO POS(629.4,-589.6,1524.3,-88.0,45.0,0.0,' ')
+
+	WRITE LUN_CRT (NL, '#######Moved to SA_V2_T', NL)
+
+END StartSA_V2_T 

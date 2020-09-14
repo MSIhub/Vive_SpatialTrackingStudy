@@ -1,0 +1,10 @@
+PROGRAM StartYO2 HOLD
+
+BEGIN
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.0, 0.0, 146.0, 0.0, 0.0, 0.0, ' ')
+
+	MOVE TO POS(-821.8,-138.2,1600.0,-135.0,90.0,90.0,' ')
+	WRITE LUN_CRT (NL, '#######Moved to START YO2', NL)
+
+END StartYO2 

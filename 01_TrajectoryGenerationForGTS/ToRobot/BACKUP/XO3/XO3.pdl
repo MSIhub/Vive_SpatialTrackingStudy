@@ -1,0 +1,83 @@
+PROGRAM XO3 HOLD
+
+  -------------------------------------------------------------------------------
+  -- Mohamed sadiq ikbal #msihub
+  -- mohamedsadiq.ikbal@edu.unige.it
+  -------------------------------------------------------------------------------
+  -- Brief:
+  -- Xpattern_Tracker trajectory batch input file
+  -- Press Start button in teaching pendant to begin the execution
+  -------------------------------------------------------------------------------
+
+TYPE node_def1 = NODEDEF
+		$MAIN_POS
+		$MOVE_TYPE
+	ENDNODEDEF
+
+
+VAR
+	pth1 : PATH OF node_def1 
+	int_var : INTEGER
+	trigger_on : BOOLEAN EXPORTED FROM mf
+	trigger_off : BOOLEAN EXPORTED FROM mf
+
+  -------------------------------------------------------------------------------  
+  ------------------------------ MAIN FUNCTION ----------------------------------  
+  -------------------------------------------------------------------------------  
+BEGIN
+	WRITE LUN_CRT (NL, '#######Motion program XO3 started...', NL)
+	$PROG_CNFG :=2
+	$ARM_SPD_OVR :=100
+	$ARM_ACC_OVR :=100
+	$ARM_DEC_OVR :=100
+	$LIN_SPD := 1.500
+	$ROT_SPD := 1.500
+	$TERM_TYPE := FINE
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.000000, 0.000000, 21.700000, 0.000000, 0.000000, 0.000000, ' ')
+
+
+
+	WRITE LUN_CRT (NL, '#######Moving to starting point...', NL)
+	MOVE TO POS(1073.0,543.0,1650.0,0.0,0.0,-90.0,' ')
+
+	NODE_APP(pth1,14)
+
+	pth1.NODE[1].$MAIN_POS :=POS(1073.0,543.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[1].$MOVE_TYPE := LINEAR
+	pth1.NODE[2].$MAIN_POS :=POS(-896.0,543.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[3].$MAIN_POS :=POS(-1073.0,366.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[4].$MAIN_POS :=POS(-896.0,189.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[5].$MAIN_POS :=POS(896.0,189.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[6].$MAIN_POS :=POS(1073.0,12.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[7].$MAIN_POS :=POS(896.0,-165.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[8].$MAIN_POS :=POS(-896.0,-165.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[9].$MAIN_POS :=POS(-1073.0,-342.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[10].$MAIN_POS :=POS(-896.0,-519.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[11].$MAIN_POS :=POS(896.0,-519.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[12].$MAIN_POS :=POS(1073.0,-696.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[13].$MAIN_POS :=POS(896.0,-873.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[14].$MAIN_POS :=POS(-966.8,-873.0,1650.0,0.0,0.0,-90.0,' ')
+	pth1.NODE[14].$MOVE_TYPE := LINEAR
+
+	FOR int_var := 2 TO 13 DO
+		pth1.NODE[int_var].$MOVE_TYPE := LINEAR
+		int_var := int_var + 1
+		pth1.NODE[int_var].$MOVE_TYPE := SEG_VIA
+		int_var := int_var + 1
+		pth1.NODE[int_var].$MOVE_TYPE := CIRCULAR
+	ENDFOR
+
+	trigger_on:= TRUE
+	trigger_off:= FALSE
+
+	WRITE LUN_CRT (NL, '#######Starting trajectory...', NL)
+	MOVE ALONG pth1 WITH $SPD_OPT = SPD_LIN 
+	CANCEL ALL
+	NODE_DEL(pth1, 1, 14)
+
+	trigger_on:= FALSE
+	trigger_off:= TRUE
+	WRITE LUN_CRT (NL, '#######Motion program XO3 end...', NL)
+
+END XO3

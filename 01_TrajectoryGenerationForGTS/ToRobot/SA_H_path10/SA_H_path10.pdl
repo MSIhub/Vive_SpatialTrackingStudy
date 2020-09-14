@@ -1,0 +1,72 @@
+PROGRAM SA_H_path10 HOLD
+  -------------------------------------------------------------------------------
+  -- Mohamed sadiq ikbal #msihub
+  -- mohamedsadiq.ikbal@edu.unige.it
+  -------------------------------------------------------------------------------
+  -- Brief:
+  -- SA_H_path10 Static Analysis trajectory generation
+  -- Press Start button in teaching pendant to begin the execution
+  -------------------------------------------------------------------------------
+
+VAR
+	trigger_on : BOOLEAN EXPORTED FROM mf
+	trigger_off : BOOLEAN EXPORTED FROM mf
+
+  -------------------------------------------------------------------------------  
+  ------------------------------ MAIN FUNCTION ----------------------------------  
+  -------------------------------------------------------------------------------  
+BEGIN
+	WRITE LUN_CRT (NL, '#######Motion program SA_H_path10 started...', NL)
+	$PROG_CNFG :=2
+	$ARM_SPD_OVR :=100
+	$ARM_ACC_OVR :=100
+	$ARM_DEC_OVR :=100
+	$LIN_SPD :=0.10
+	$ROT_SPD :=0.50
+	$TERM_TYPE := FINE
+	$UFRAME := POS(0, 0, 0, 0, 0, 0, ' ')
+	$TOOL := POS(0.000000, 0.000000, 146.000000, 0.000000, 0.000000, 0.000000, ' ')
+
+
+	WRITE LUN_CRT (NL, '#######Moving to starting point...', NL)
+	MOVE TO POS(221.5,-1125.7,1051.0,-88.0,45.0,68.0,' ')
+
+	trigger_on:= TRUE
+	trigger_off:= FALSE
+
+	WRITE LUN_CRT (NL, '## Moving to point 1', NL)
+	MOVE TO POS(221.5,-1125.7,1051.0,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 2', NL)
+	MOVE TO POS(293.6,-1275.1,1205.2,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 3', NL)
+	MOVE TO POS(355.7,-1046.8,1589.5,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 4', NL)
+	MOVE TO POS(-62.5,-845.8,1248.4,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 5', NL)
+	MOVE TO POS(123.1,-788.4,1547.2,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 6', NL)
+	MOVE TO POS(-377.2,-894.5,1138.0,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 7', NL)
+	MOVE TO POS(-158.8,-1262.6,1409.6,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 8', NL)
+	MOVE TO POS(-104.1,-915.3,1403.5,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 9', NL)
+	MOVE TO POS(29.1,-1150.8,1393.5,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+	WRITE LUN_CRT (NL, '## Moving to point 10', NL)
+	MOVE TO POS(-462.3,-858.7,1382.3,-88.0,45.0,68.0,' ') WITH $MOVE_TYPE = LINEAR, $SPD_OPT = SPD_LIN
+	DELAY 10000
+
+	trigger_on:= FALSE
+	trigger_off:= TRUE
+	WRITE LUN_CRT (NL, '#######Motion program SA_H_path10 end...', NL)
+
+END SA_H_path10
