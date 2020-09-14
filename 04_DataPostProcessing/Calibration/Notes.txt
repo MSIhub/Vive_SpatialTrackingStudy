@@ -1,0 +1,10 @@
+% Notes while calibration of Prescribed workspace 
+
+Vive area calibrated : 3.5 * 3.5 meters
+
+tool mount measured as 44.9 mm and set as 45 mm as submm cannot be set for comau task programming
+
+Ensure that the dongle is connected eventhough it is unnecessary
+
+Ensure that the tracker is charging the whole time when traversing the prescribed workspace
+

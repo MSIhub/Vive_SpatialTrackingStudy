@@ -1,0 +1,7 @@
+Checklist to follow while running calibration of prescribed workspace
+
+1. Ensure the device tracked is charging: the run takes long time so its better to keep it charging. 
+
+2. Ensure the dongle is connected for trackers and kept 45 mm away from the PC
+
+3. Run for 5 mins to verify data collection is happening normally before running for hours
