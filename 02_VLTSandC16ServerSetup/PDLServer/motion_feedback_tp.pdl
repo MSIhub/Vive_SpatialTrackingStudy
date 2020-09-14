@@ -1,0 +1,142 @@
+PROGRAM motion_feedback_tp NOHOLD, PROG_ARM=1
+
+  -------------------------------------------------------------------------------
+  -- Mohamed sadiq ikbal #msihub
+  -- mohamedsadiq.ikbal@edu.unige.it
+  -------------------------------------------------------------------------------
+  -- Brief:
+  -- trajectory motion feedback Motion feedback over TCP/IP communication
+  -------------------------------------------------------------------------------
+
+VAR
+	comm_lun_mf : INTEGER
+	cartesian_positions: ARRAY[6] OF REAL
+	cpos : POSITION
+	str : STRING[33]
+   	timestamp : INTEGER
+   	jnt_var : JOINTPOS
+
+CONST
+	DV4_TCP_GET = 27           -- documentazione comaux
+	DV4_TCP_ACCEPT = 29        -- documentazione comau (open a server)
+	DV4_TCP_CONNECT = 30       -- documentazione comau (open a client)
+	DV4_TCP_DISCONNECT = 31    -- documentazione comau
+	PORT_TRJ = 96321
+	VERBOSE = 0 -- to print in command line
+
+
+ROUTINE ru_get(vi_netlun, vi_scrlun, verbose : INTEGER) EXPORTED FROM motion_feedback_tp 
+ROUTINE tcp_accept(port, vi_netlun, vi_scrlun, verbose : INTEGER) EXPORTED FROM motion_feedback_tp 
+
+---------------------------------------------------------------
+-- ru_get()
+---------------------------------------------------------------
+-- print at video (CRT) information concerning the remote
+-- connection established
+---------------------------------------------------------------
+ROUTINE ru_get(vi_netlun, vi_scrlun, verbose : INTEGER)
+VAR ls_session, ls_accept, ls_connect : STRING[40]
+  li_remote, li_local, li_options, li_linger : INTEGER
+BEGIN
+  -- DV4_CNTRL Build in Routine fuer get information ----------------------
+  DV4_CNTRL(DV4_TCP_GET, (vi_netlun), ls_session, ls_accept, ls_connect, li_remote, li_local, li_options, li_linger)
+  IF $DV_STS = 0 THEN
+    IF verbose = 1 THEN
+      IF vi_scrlun = -1 THEN
+        WRITE LUN_CRT ( NL, 'ru_get() ] ', NL )
+        WRITE LUN_CRT (' Session: ', ls_session, ' Accept: ', ls_accept, NL )
+        WRITE LUN_CRT (' Connect: ', ls_connect, ' Remote Port: ', li_remote, ' Local: ', li_local, NL )
+      ELSE
+        WRITE vi_scrlun ( NL,'ru_get() ] ', NL )
+        WRITE vi_scrlun (' Connect: ', ls_connect, ' Port: ', li_remote, ' Local: ', li_local, NL )
+
+      ENDIF
+    ENDIF
+  ENDIF
+END ru_get
+
+---------------------------------------------------------------
+-- tcp_accept()
+---------------------------------------------------------------
+-- prepares the program to accept connections from remote TCP clients,
+-- that is, it creates a TCP server
+-- INPUT:
+--     port:        open-port on the remote server
+--     vi_netlun:   the "file" corresponding to the network resource, that is:
+--                  BEFORE create a client, we need to create the network connection
+--                  as below:
+--                  "OPEN FILE netlun ('NETT:', 'rw') WITH $FL_ADLMT = '\010'"
+--     vi_scrlun:   handle to a screen where write the status outputs. If -1, the
+--                  outputs will be written in the TP
+--     verbose:     if 1, a lot of stuff will be written at screen, if 0, minimum
+--                  information will be written
+---------------------------------------------------------------
+
+ROUTINE tcp_accept(port, vi_netlun, vi_scrlun, verbose : INTEGER)
+
+BEGIN
+
+  IF verbose = 1 THEN
+    IF vi_scrlun = -1 THEN
+      WRITE LUN_TP ('[tcp_accept() ] Waiting for connections...', NL)
+    ELSE
+      WRITE vi_scrlun ('[tcp_accept() ] Waiting for connections...', NL)
+    ENDIF
+  ENDIF
+
+  DV4_CNTRL(DV4_TCP_ACCEPT, (vi_netlun), (port), '0.0.0.0')
+  DV4_CNTRL (28, (vi_netlun), 0x1, 0x0)
+
+  IF $DV_STS = 0 THEN
+    ru_get((vi_netlun), -1, verbose)
+    IF verbose = 1 THEN
+      IF vi_scrlun = -1 THEN
+        WRITE LUN_TP (NL, '[tcp_accept()] Connected.', NL)
+      ELSE
+        WRITE vi_scrlun (NL, '[tcp_accept()] Connected.', NL)
+      ENDIF
+    ENDIF
+  ELSE
+    IF vi_scrlun = -1 THEN
+      WRITE LUN_TP (NL, '[tcp_accept()] Error! $DV_STS=', $DV_STS , NL)
+    ELSE
+      WRITE vi_scrlun (NL, '[tcp_accept()] Error! $DV_STS=', $DV_STS , NL)
+    ENDIF
+  ENDIF
+
+END tcp_accept
+
+---------------------------------------------------------------
+-- main
+---------------------------------------------------------------
+
+BEGIN
+	WRITE LUN_CRT (NL, '#######Motion feedback program initiated', NL)
+
+	OPEN FILE comm_lun_mf ('NETT:', 'rw'),
+		WITH $FL_BINARY = TRUE,
+	ENDOPEN
+
+	WRITE LUN_CRT (NL, '#######Starting motion feedback socket connection...', NL)
+
+	tcp_accept (PORT_TRJ, comm_lun_mf, -1, VERBOSE)
+
+	WRITE LUN_CRT (NL,'#######Socket connected...',NL)
+	WRITE LUN_CRT (NL,'#######Awaiting motion program to start...',NL)
+
+	WAIT FOR $FDIN[79]
+	WRITE LUN_CRT (NL,'#######Motion program started...',NL)
+  	REPEAT
+		timestamp:=CLOCK --in seconds
+		cpos := ARM_POS
+		POS_XTRT(cpos, cartesian_positions[1], cartesian_positions[2], cartesian_positions[3], cartesian_positions[4], cartesian_positions[5], cartesian_positions[6], str)
+    		POS_TO_JNTP(cpos, jnt_var)
+		WRITE comm_lun_mf(timestamp,cartesian_positions[1],cartesian_positions[2],cartesian_positions[3],cartesian_positions[4],cartesian_positions[5],cartesian_positions[6],jnt_var[1],jnt_var[2],jnt_var[3],jnt_var[4],jnt_var[5],jnt_var[6])
+		
+	UNTIL $FDIN[87]
+	WRITE LUN_CRT (NL,'#######Motion program stopped...',NL)
+	DV4_CNTRL(31, (comm_lun_mf)) --Socket disconnect
+	CLOSE FILE comm_lun_mf
+	WRITE LUN_CRT (NL,'#######Socket disconnected...',NL)
+
+ END motion_feedback_tp 
