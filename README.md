@@ -1,7 +1,7 @@
 # Vive_SpatialTrackingStudy
 This repository contains the source code for the architecture of the system developed to study the spatial tracking performance of HTC Vive lighthouse tracking system under dynamic conditions using a Comau NS16. This repository includes the C++ source code of the data collection API, the Python path to PDL parser script, and the MATLAB scripts developed for post-processing, transformation, generation of the performance metrics, and also for the registration algorithm tested.
 
-Refer SystemArchitecture.jpg for code organizational structure and flow. 
+![Refer SystemArchitecture.jpg for code organizational structure and flow](https://github.com/MSIhub/Vive_SpatialTrackingStudy/blob/master/SystemArchitecture.jpg)
 
 The architecture of the experimental setup to evaluate the VLTS is elucidated in Fig. SystemArchitecture.jpg. It describes the integration of two systems (COMAU NS 16 and VLTS) in four primary blocks. The requirement of this system is to provide pose and time data feedback synchronized in the same reference frame with a time latency of less than 22 ms.
 
